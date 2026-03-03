@@ -925,7 +925,7 @@ body{
       </div>
       <div id="fieldDelivery" style="display:none">
         <div class="cust-form-title">🛵 Delivery Details</div>
-        <div style="background:linear-gradient(135deg,var(--red-deep),var(--red-dark));color:#fff;border-radius:10px;padding:8px 12px;font-size:.78rem;font-family:'Oswald',sans-serif;letter-spacing:.5px;margin-bottom:8px;">🛵 Delivery Charges: Rs. 150 within 2km</div>
+        <div style="background:linear-gradient(135deg,var(--red-deep),var(--red-dark));color:#fff;border-radius:10px;padding:8px 12px;font-size:.78rem;font-family:'Oswald',sans-serif;letter-spacing:.5px;margin-bottom:8px;">🛵 Delivery Charges: Rs. 150 &nbsp;|&nbsp; Min. Order: Rs. 450</div>
         <div class="cust-field">
           <label>Full Name <span class="req">*</span></label>
           <input type="text" id="custNameD" placeholder="Your full name">
@@ -1295,6 +1295,13 @@ function orderWhatsApp() {
     custAddr  = check('custAddress', 'errAddr');
     custPhone = check('custPhone', 'errPhone');
   }
+  if (orderType === 'delivery') {
+  const subtotal = cart.reduce((s, c) => s + c.price * c.qty, 0);
+  if (subtotal < 450) {
+    alert('Minimum order for home delivery is Rs. 450.\nPlease add more items.');
+    return;
+  }
+}
   if (!valid) {
     const firstErr = document.querySelector('.cust-field input.err, .cust-field textarea.err');
     if (firstErr) firstErr.scrollIntoView({behavior:'smooth', block:'center'});
