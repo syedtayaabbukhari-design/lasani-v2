@@ -9,20 +9,20 @@
           "id": 1,
           "en": "Chicken Shami",
           "ur": "چکن شامی",
-          "single": 500
+          "single": 100
         },
         {
           "id": 2,
           "en": "Egg Shami",
           "ur": "انڈے شامی",
-          "single": 500
+          "single": 250
         },
         {
           "id": 3,
           "en": "Egg Chana",
           "ur": "انڈے چنے",
-          "half": 560,
-          "full": 550
+          "half": 260,
+          "full": 350
         },
         {
           "id": 4,
@@ -35,8 +35,8 @@
           "id": 5,
           "en": "Chicken Qorma",
           "ur": "چکن قورمہ",
-          "half": 350,
-          "full": 500
+          "half": 400,
+          "full": 750
         },
         {
           "id": 6,
@@ -49,15 +49,15 @@
           "id": 7,
           "en": "Murgh Chana",
           "ur": "مرغ چنے",
-          "half": 350,
-          "full": 500
+          "half": 400,
+          "full": 750
         },
         {
           "id": 8,
           "en": "Barey Paye",
           "ur": "بڑے پائے",
-          "half": 350,
-          "full": 550
+          "half": 500,
+          "full": 800
         },
         {
           "id": 9,
@@ -70,8 +70,8 @@
           "id": 10,
           "en": "Chicken Haleem",
           "ur": "چکن حلیم",
-          "half": 350,
-          "full": 500
+          "half": 400,
+          "full": 750
         },
         {
           "id": 11,
@@ -112,15 +112,15 @@
           "id": 16,
           "en": "Chicken Dal Mash",
           "ur": "چکن دال ماش",
-          "half": 350,
-          "full": 500
+          "half": 400,
+          "full": 750
         },
         {
           "id": 17,
           "en": "Chicken Dal Chana",
           "ur": "چکن دال چنے",
-          "half": 350,
-          "full": 500
+          "half": 400,
+          "full": 750
         },
         {
           "id": 18,
@@ -133,8 +133,8 @@
           "id": 19,
           "en": "Chicken Sabzi",
           "ur": "چکن سبزی",
-          "half": 245,
-          "full": 500
+          "half": 400,
+          "full": 750
         },
         {
           "id": 20,
