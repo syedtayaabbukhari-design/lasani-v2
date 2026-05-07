@@ -292,7 +292,7 @@ async function loadPrices(){
   }));
 
   try {
-    const r = await fetch('/menu.json?t=' + Date.now());
+    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/menu.json?t=` + Date.now());
     if(r.ok){
       const json = await r.json();
       document.getElementById('lastUpdated').textContent = 'Last updated: ' + (json.lastUpdated || 'unknown');
