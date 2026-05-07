@@ -370,7 +370,7 @@ async function saveMenu(){
     const putJson = await putRes.json();
     if(!putRes.ok) throw new Error(putJson.message);
 
-    showMsg('ok','✅ GitHub par save ho gaya! 1-2 minute mein site live ho jayegi.');
+    showMsg('ok','✅ Changes saved! changes Will be live in 30sec.');
     document.getElementById('lastUpdated').textContent = 'Last updated: ' + today;
     changeCount = 0;
     document.getElementById('changeCount').textContent = '0';
