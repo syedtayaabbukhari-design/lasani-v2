@@ -15,14 +15,14 @@
           "id": 2,
           "en": "Egg Shami",
           "ur": "انڈے شامی",
-          "single": 5000
+          "single": 500
         },
         {
           "id": 3,
           "en": "Egg Chana",
           "ur": "انڈے چنے",
-          "half": 260,
-          "full": 350
+          "half": 560,
+          "full": 550
         },
         {
           "id": 4,
