@@ -5,57 +5,277 @@
       "id": "main",
       "label": "Main Course",
       "items": [
-        { "id": 1,   "en": "Chicken Shami",     "ur": "چکن شامی",       "single": 80 },
-        { "id": 2,   "en": "Egg Shami",         "ur": "انڈے شامی",     "single": 250 },
-        { "id": 3,   "en": "Egg Chana",         "ur": "انڈے چنے",      "half": 260, "full": 350 },
-        { "id": 4,   "en": "Kofta Chana",       "ur": "کوفتہ چنے",     "half": 260, "full": 350 },
-        { "id": 5,   "en": "Chicken Qorma",     "ur": "چکن قورمہ",     "half": 350, "full": 500 },
-        { "id": 6,   "en": "Dal Mash",          "ur": "دال ماش",       "half": 260, "full": 350 },
-        { "id": 7,   "en": "Murgh Chana",       "ur": "مرغ چنے",       "half": 350, "full": 500 },
-        { "id": 8,   "en": "Barey Paye",        "ur": "بڑے پائے",      "half": 350, "full": 550 },
-        { "id": 9,   "en": "Haleem",            "ur": "حلیم",           "half": 280, "full": 350 },
-        { "id": 10,  "en": "Chicken Haleem",    "ur": "چکن حلیم",      "half": 350, "full": 500 },
-        { "id": 11,  "en": "Chana",             "ur": "چنے",            "half": 220, "full": 300 },
-        { "id": 12,  "en": "Egg Haleem",        "ur": "انڈے حلیم",     "half": 300, "full": 410 },
-        { "id": 13,  "en": "Dal Chana",         "ur": "دال چنے",       "half": 260, "full": 350 },
-        { "id": 14,  "en": "Sabzi",             "ur": "سبزی",           "half": 260, "full": 350 },
-        { "id": 15,  "en": "Kofta Haleem",      "ur": "کوفتہ حلیم",    "half": 300, "full": 410 },
-        { "id": 16,  "en": "Chicken Dal Mash",  "ur": "چکن دال ماش",   "half": 350, "full": 500 },
-        { "id": 17,  "en": "Chicken Dal Chana", "ur": "چکن دال چنے",   "half": 350, "full": 500 },
-        { "id": 18,  "en": "Aloo Keema",        "ur": "آلو قیمہ",      "half": 330, "full": 450 },
-        { "id": 19,  "en": "Chicken Sabzi",     "ur": "چکن سبزی",      "half": 245, "full": 500 },
-        { "id": 20,  "en": "Kofta Sabzi",       "ur": "کوفتہ سبزی",    "half": 300, "full": 410 },
-        { "id": 21,  "en": "Egg Sabzi",         "ur": "انڈے سبزی",     "half": 300, "full": 410 },
-        { "id": 22,  "en": "Kofta Chana (2)",   "ur": "کوفتہ چنے",     "half": 300, "full": 410 },
-        { "id": 101, "en": "Kofta Dal Mash",    "ur": "کوفتہ دال ماش", "half": 300, "full": 410 },
-        { "id": 102, "en": "Chicken Kofta",     "ur": "چکن کوفتہ",     "single": 400 },
-        { "id": 103, "en": "Egg Dal Chana",     "ur": "انڈے دال چنے",  "half": 300, "full": 410 },
-        { "id": 104, "en": "Egg Dal Mash",      "ur": "انڈے دال ماش",  "half": 300, "full": 410 },
-        { "id": 105, "en": "Kari Pakora",       "ur": "کڑھی پکوڑہ",    "half": 260, "full": 350 }
+        {
+          "id": 1,
+          "en": "Chicken Shami",
+          "ur": "چکن شامی",
+          "single": 500
+        },
+        {
+          "id": 2,
+          "en": "Egg Shami",
+          "ur": "انڈے شامی",
+          "single": 250
+        },
+        {
+          "id": 3,
+          "en": "Egg Chana",
+          "ur": "انڈے چنے",
+          "half": 260,
+          "full": 350
+        },
+        {
+          "id": 4,
+          "en": "Kofta Chana",
+          "ur": "کوفتہ چنے",
+          "half": 260,
+          "full": 350
+        },
+        {
+          "id": 5,
+          "en": "Chicken Qorma",
+          "ur": "چکن قورمہ",
+          "half": 350,
+          "full": 500
+        },
+        {
+          "id": 6,
+          "en": "Dal Mash",
+          "ur": "دال ماش",
+          "half": 260,
+          "full": 350
+        },
+        {
+          "id": 7,
+          "en": "Murgh Chana",
+          "ur": "مرغ چنے",
+          "half": 350,
+          "full": 500
+        },
+        {
+          "id": 8,
+          "en": "Barey Paye",
+          "ur": "بڑے پائے",
+          "half": 350,
+          "full": 550
+        },
+        {
+          "id": 9,
+          "en": "Haleem",
+          "ur": "حلیم",
+          "half": 280,
+          "full": 350
+        },
+        {
+          "id": 10,
+          "en": "Chicken Haleem",
+          "ur": "چکن حلیم",
+          "half": 350,
+          "full": 500
+        },
+        {
+          "id": 11,
+          "en": "Chana",
+          "ur": "چنے",
+          "half": 220,
+          "full": 300
+        },
+        {
+          "id": 12,
+          "en": "Egg Haleem",
+          "ur": "انڈے حلیم",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 13,
+          "en": "Dal Chana",
+          "ur": "دال چنے",
+          "half": 260,
+          "full": 350
+        },
+        {
+          "id": 14,
+          "en": "Sabzi",
+          "ur": "سبزی",
+          "half": 260,
+          "full": 350
+        },
+        {
+          "id": 15,
+          "en": "Kofta Haleem",
+          "ur": "کوفتہ حلیم",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 16,
+          "en": "Chicken Dal Mash",
+          "ur": "چکن دال ماش",
+          "half": 350,
+          "full": 500
+        },
+        {
+          "id": 17,
+          "en": "Chicken Dal Chana",
+          "ur": "چکن دال چنے",
+          "half": 350,
+          "full": 500
+        },
+        {
+          "id": 18,
+          "en": "Aloo Keema",
+          "ur": "آلو قیمہ",
+          "half": 330,
+          "full": 450
+        },
+        {
+          "id": 19,
+          "en": "Chicken Sabzi",
+          "ur": "چکن سبزی",
+          "half": 245,
+          "full": 500
+        },
+        {
+          "id": 20,
+          "en": "Kofta Sabzi",
+          "ur": "کوفتہ سبزی",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 21,
+          "en": "Egg Sabzi",
+          "ur": "انڈے سبزی",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 22,
+          "en": "Kofta Chana (2)",
+          "ur": "کوفتہ چنے",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 101,
+          "en": "Kofta Dal Mash",
+          "ur": "کوفتہ دال ماش",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 102,
+          "en": "Chicken Kofta",
+          "ur": "چکن کوفتہ",
+          "single": 400
+        },
+        {
+          "id": 103,
+          "en": "Egg Dal Chana",
+          "ur": "انڈے دال چنے",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 104,
+          "en": "Egg Dal Mash",
+          "ur": "انڈے دال ماش",
+          "half": 300,
+          "full": 410
+        },
+        {
+          "id": 105,
+          "en": "Kari Pakora",
+          "ur": "کڑھی پکوڑہ",
+          "half": 260,
+          "full": 350
+        }
       ]
     },
     {
       "id": "tandoor",
       "label": "Tandoor",
       "items": [
-        { "id": 201, "en": "Aloo Wala Naan", "ur": "آلو والا نان", "single": 100 },
-        { "id": 202, "en": "Special Naan",   "ur": "سپیشل نان",   "single": 80 },
-        { "id": 203, "en": "Kalonji Naan",   "ur": "کلونجی نان",  "single": 80 },
-        { "id": 204, "en": "Roghni Naan",    "ur": "روغنی نان",   "single": 80 },
-        { "id": 205, "en": "Sufaid Roti",    "ur": "سفید روٹی",   "single": 30 },
-        { "id": 206, "en": "Kulcha Naan",    "ur": "کلچہ نان",    "single": 40 }
+        {
+          "id": 201,
+          "en": "Aloo Wala Naan",
+          "ur": "آلو والا نان",
+          "single": 100
+        },
+        {
+          "id": 202,
+          "en": "Special Naan",
+          "ur": "سپیشل نان",
+          "single": 80
+        },
+        {
+          "id": 203,
+          "en": "Kalonji Naan",
+          "ur": "کلونجی نان",
+          "single": 80
+        },
+        {
+          "id": 204,
+          "en": "Roghni Naan",
+          "ur": "روغنی نان",
+          "single": 80
+        },
+        {
+          "id": 205,
+          "en": "Sufaid Roti",
+          "ur": "سفید روٹی",
+          "single": 30
+        },
+        {
+          "id": 206,
+          "en": "Kulcha Naan",
+          "ur": "کلچہ نان",
+          "single": 40
+        }
       ]
     },
     {
       "id": "extras",
       "label": "Extras & Beverages",
       "items": [
-        { "id": 301, "en": "Aquafina (Small)",  "ur": "پانی (چھوٹا)",  "single": 80 },
-        { "id": 302, "en": "Aquafina (1.5L)",   "ur": "پانی (بڑا)",    "single": 130 },
-        { "id": 303, "en": "Cold Drink (1L)",   "ur": "کولڈ ڈرنک",     "single": 180 },
-        { "id": 304, "en": "Cold Drink (1.5L)", "ur": "کولڈ ڈرنک بڑا", "single": 250 },
-        { "id": 305, "en": "Raita",             "ur": "رائتہ",          "half": 50, "full": 100 },
-        { "id": 306, "en": "Salad",             "ur": "سلاد",           "single": 100 }
+        {
+          "id": 301,
+          "en": "Aquafina (Small)",
+          "ur": "پانی (چھوٹا)",
+          "single": 80
+        },
+        {
+          "id": 302,
+          "en": "Aquafina (1.5L)",
+          "ur": "پانی (بڑا)",
+          "single": 130
+        },
+        {
+          "id": 303,
+          "en": "Cold Drink (1L)",
+          "ur": "کولڈ ڈرنک",
+          "single": 180
+        },
+        {
+          "id": 304,
+          "en": "Cold Drink (1.5L)",
+          "ur": "کولڈ ڈرنک بڑا",
+          "single": 250
+        },
+        {
+          "id": 305,
+          "en": "Raita",
+          "ur": "رائتہ",
+          "half": 50,
+          "full": 100
+        },
+        {
+          "id": 306,
+          "en": "Salad",
+          "ur": "سلاد",
+          "single": 100
+        }
       ]
     }
   ]
