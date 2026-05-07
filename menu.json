@@ -1,0 +1,47 @@
+{
+  "lastUpdated": "2026-05-07",
+  "categories": [
+    {
+      "id": "mains",
+      "label": "Main Course",
+      "items": [
+        { "id": 101, "en": "Paye",   "ur": "پائے",   "emoji": "🍖", "half": 200, "full": 350 },
+        { "id": 102, "en": "Nihari", "ur": "نہاری",  "emoji": "🥘", "half": 230, "full": 400 },
+        { "id": 103, "en": "Haleem", "ur": "حلیم",   "emoji": "🥣", "half": 180, "full": 320 },
+        { "id": 104, "en": "Maghaz", "ur": "مغز",    "emoji": "🧠", "half": 250, "full": 450 }
+      ]
+    },
+    {
+      "id": "curries",
+      "label": "Karahi & Curries",
+      "items": [
+        { "id": 201, "en": "Mutton Karahi",  "ur": "مٹن کڑاہی",   "emoji": "🥩", "half": 850,  "full": 1600 },
+        { "id": 202, "en": "Chicken Karahi", "ur": "چکن کڑاہی",   "emoji": "🍗", "half": 650,  "full": 1200 },
+        { "id": 203, "en": "Daal Mash",      "ur": "دال ماش",     "emoji": "🫘", "single": 200 },
+        { "id": 204, "en": "Daal Chana",     "ur": "دال چنا",     "emoji": "🫘", "single": 180 }
+      ]
+    },
+    {
+      "id": "tandoor",
+      "label": "Tandoor",
+      "items": [
+        { "id": 301, "en": "Sufaid Roti",      "ur": "سفید روٹی",    "emoji": "🫓", "single": 30  },
+        { "id": 302, "en": "Kalonji Naan",     "ur": "کلونجی نان",   "emoji": "🫓", "single": 80  },
+        { "id": 303, "en": "Butter Naan",      "ur": "بٹر نان",      "emoji": "🫓", "single": 100 },
+        { "id": 304, "en": "Tandoori Paratha", "ur": "تندوری پراٹھا","emoji": "🫓", "single": 70  },
+        { "id": 305, "en": "Raita",            "ur": "رائتہ",        "emoji": "🥣", "half": 50, "full": 100 },
+        { "id": 306, "en": "Salad",            "ur": "سلاد",         "emoji": "🥗", "single": 100 }
+      ]
+    },
+    {
+      "id": "beverages",
+      "label": "Beverages",
+      "items": [
+        { "id": 401, "en": "Lassi (Sweet)", "ur": "لسی میٹھی",    "emoji": "🥛", "single": 150 },
+        { "id": 402, "en": "Lassi (Salty)", "ur": "لسی نمکین",    "emoji": "🥛", "single": 150 },
+        { "id": 403, "en": "Mint Lemonade", "ur": "پودینہ لیمونیڈ","emoji": "🍋", "single": 120 },
+        { "id": 404, "en": "Cold Drink",    "ur": "کولڈ ڈرنک",    "emoji": "🥤", "single": 80  }
+      ]
+    }
+  ]
+}
