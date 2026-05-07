@@ -1401,7 +1401,51 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
   });
 });
 
-renderAll();
+async function initMenu() {
+  // Step 1: Render immediately with hardcoded prices (instant, no flicker)
+  renderAll();
+
+  // Step 2: Fetch live prices from GitHub in background
+  const OWNER  = 'syedtayaabbukhari-design';
+  const REPO   = 'lasani-v2';
+  const BRANCH = 'main';
+  try {
+    const controller = new AbortController();
+    const tid = setTimeout(() => controller.abort(), 8000);
+    const r = await fetch(
+      `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/menu.json?t=` + Date.now(),
+      { signal: controller.signal }
+    );
+    clearTimeout(tid);
+    if (!r.ok) return;
+    const json = await r.json();
+
+    // Build a flat id→prices lookup from the JSON
+    const livePrices = {};
+    json.categories.forEach(cat => {
+      cat.items.forEach(item => { livePrices[item.id] = item; });
+    });
+
+    // Patch menuData in-place with live prices
+    let changed = false;
+    Object.values(menuData).forEach(arr => {
+      arr.forEach(item => {
+        const live = livePrices[item.id];
+        if (!live) return;
+        if (live.single !== undefined && live.single !== item.single) { item.single = live.single; changed = true; }
+        if (live.half   !== undefined && live.half   !== item.half)   { item.half   = live.half;   changed = true; }
+        if (live.full   !== undefined && live.full   !== item.full)   { item.full   = live.full;   changed = true; }
+      });
+    });
+
+    // Re-render only if something actually changed
+    if (changed) renderAll();
+  } catch(e) {
+    // Network error or timeout — hardcoded prices stay, no crash
+  }
+}
+
+initMenu();
 </script>
 </body>
 </html>
