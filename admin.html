@@ -223,6 +223,7 @@ window.addEventListener('DOMContentLoaded', () => {
 });
 
 async function loadPrices(){
+  // Step 1: Seed prices from hardcoded MENU - renders instantly, no waiting
   MENU.forEach(cat => cat.items.forEach(item => {
     prices[item.id] = {};
     if(item.single !== undefined) prices[item.id].single = item.single;
@@ -230,8 +231,19 @@ async function loadPrices(){
     if(item.full   !== undefined) prices[item.id].full   = item.full;
   }));
 
+  // Step 2: Render immediately - NO infinite loading screen
+  document.getElementById('lastUpdated').textContent = 'Loading prices from GitHub…';
+  renderMenu();
+
+  // Step 3: Fetch latest prices from GitHub in background (8s timeout)
   try {
-    const r = await fetch(`https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/menu.json?t=` + Date.now());
+    const controller = new AbortController();
+    const tid = setTimeout(() => controller.abort(), 8000);
+    const r = await fetch(
+      `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/menu.json?t=` + Date.now(),
+      { signal: controller.signal }
+    );
+    clearTimeout(tid);
     if(r.ok){
       const json = await r.json();
       document.getElementById('lastUpdated').textContent = 'Last updated: ' + (json.lastUpdated || 'unknown');
@@ -243,13 +255,15 @@ async function loadPrices(){
           if(ji.full   !== undefined) prices[ji.id].full   = ji.full;
         });
       });
+      renderMenu(); // Re-render with live GitHub prices
     } else {
-      document.getElementById('lastUpdated').textContent = 'Default prices (menu.json not loaded)';
+      document.getElementById('lastUpdated').textContent = 'Hardcoded prices (GitHub error: ' + r.status + ')';
     }
   } catch(e) {
-    document.getElementById('lastUpdated').textContent = 'Default prices (offline)';
+    document.getElementById('lastUpdated').textContent = e.name === 'AbortError'
+      ? 'Hardcoded prices (GitHub timeout)'
+      : 'Hardcoded prices (offline)';
   }
-  renderMenu();
 }
 
 function renderMenu(){
