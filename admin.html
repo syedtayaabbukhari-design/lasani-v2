@@ -42,20 +42,7 @@ body{font-family:'Oswald',sans-serif;background:var(--smoke);min-height:100vh;pa
 .token-bar input:focus{border-color:var(--red)}
 .token-tip{font-size:.7rem;color:#a08060;width:100%;margin-top:2px}
 
-/* CONFIG BAR */
-.config-bar{
-  background:#fff8ec;border-bottom:2px solid var(--tan);
-  padding:10px 16px;display:flex;gap:10px;flex-wrap:wrap;align-items:center;
-}
-.config-bar label{font-size:.72rem;color:var(--muted);font-weight:600;letter-spacing:.5px;text-transform:uppercase;white-space:nowrap}
-.config-bar input{
-  flex:1;min-width:150px;padding:7px 10px;border-radius:7px;
-  border:1.5px solid var(--border);font-size:.82rem;
-  background:var(--cream);color:var(--ink);outline:none;
-  transition:border-color .15s;
-}
-.config-bar input:focus{border-color:var(--saffron)}
-.config-note{font-size:.68rem;color:#b08040;width:100%;margin-top:2px}
+
 
 /* WRAP */
 .wrap{max-width:860px;margin:0 auto;padding:16px 14px}
@@ -146,16 +133,7 @@ input[type=number].changed{border-color:var(--red);background:#fff8f5}
   <span class="token-tip">Sirf is session ke liye save hota hai. Tab band karo toh hat jata hai.</span>
 </div>
 
-<!-- GitHub Config -->
-<div class="config-bar">
-  <label>Owner</label>
-  <input type="text" id="cfgOwner" placeholder="syedtayaabbukhari-design">
-  <label>Repo</label>
-  <input type="text" id="cfgRepo" placeholder="lasani-v2">
-  <label>Branch</label>
-  <input type="text" id="cfgBranch" placeholder="main" style="flex:0 0 80px;min-width:60px">
-  <span class="config-note">⚙️ Yeh settings sessionStorage mein save hoti hain.</span>
-</div>
+
 
 <div id="msgBox"></div>
 
@@ -230,42 +208,82 @@ const MENU = [
 // Working copy of prices
 let prices = {};
 let changeCount = 0;
+// ── CONFIG (hardcoded) ────────────────────────────────────────────────────────
+const OWNER  = 'syedtayaabbukhari-design';
+const REPO   = 'lasani-v2';
+const BRANCH = 'main';
 
-// ── SESSION STORAGE ───────────────────────────────────────────────────────────
-function saveToken(v){ sessionStorage.setItem('gh_token', v.trim()) }
-function getToken(){ return sessionStorage.getItem('gh_token') || '' }
+// ── ALL MENU DATA (matches index.html exactly) ────────────────────────────────
+const MENU = [
+  {
+    id: 'main', label: '🍲 Main Course',
+    items: [
+      { id:1,   en:'Chicken Shami',     ur:'چکن شامی',       single:80 },
+      { id:2,   en:'Egg Shami',         ur:'انڈے شامی',     single:250 },
+      { id:3,   en:'Egg Chana',         ur:'انڈے چنے',      half:260, full:350 },
+      { id:4,   en:'Kofta Chana',       ur:'کوفتہ چنے',     half:260, full:350 },
+      { id:5,   en:'Chicken Qorma',     ur:'چکن قورمہ',     half:350, full:500 },
+      { id:6,   en:'Dal Mash',          ur:'دال ماش',       half:260, full:350 },
+      { id:7,   en:'Murgh Chana',       ur:'مرغ چنے',       half:350, full:500 },
+      { id:8,   en:'Barey Paye',        ur:'بڑے پائے',      half:350, full:550 },
+      { id:9,   en:'Haleem',            ur:'حلیم',           half:280, full:350 },
+      { id:10,  en:'Chicken Haleem',    ur:'چکن حلیم',      half:350, full:500 },
+      { id:11,  en:'Chana',             ur:'چنے',            half:220, full:300 },
+      { id:12,  en:'Egg Haleem',        ur:'انڈے حلیم',     half:300, full:410 },
+      { id:13,  en:'Dal Chana',         ur:'دال چنے',       half:260, full:350 },
+      { id:14,  en:'Sabzi',             ur:'سبزی',           half:260, full:350 },
+      { id:15,  en:'Kofta Haleem',      ur:'کوفتہ حلیم',    half:300, full:410 },
+      { id:16,  en:'Chicken Dal Mash',  ur:'چکن دال ماش',   half:350, full:500 },
+      { id:17,  en:'Chicken Dal Chana', ur:'چکن دال چنے',   half:350, full:500 },
+      { id:18,  en:'Aloo Keema',        ur:'آلو قیمہ',      half:330, full:450 },
+      { id:19,  en:'Chicken Sabzi',     ur:'چکن سبزی',      half:245, full:500 },
+      { id:20,  en:'Kofta Sabzi',       ur:'کوفتہ سبزی',    half:300, full:410 },
+      { id:21,  en:'Egg Sabzi',         ur:'انڈے سبزی',     half:300, full:410 },
+      { id:22,  en:'Kofta Chana (2)',   ur:'کوفتہ چنے',     half:300, full:410 },
+      { id:101, en:'Kofta Dal Mash',    ur:'کوفتہ دال ماش', half:300, full:410 },
+      { id:102, en:'Chicken Kofta',     ur:'چکن کوفتہ',     single:400 },
+      { id:103, en:'Egg Dal Chana',     ur:'انڈے دال چنے',  half:300, full:410 },
+      { id:104, en:'Egg Dal Mash',      ur:'انڈے دال ماش',  half:300, full:410 },
+      { id:105, en:'Kari Pakora',       ur:'کڑھی پکوڑہ',    half:260, full:350 },
+    ]
+  },
+  {
+    id: 'tandoor', label: '🫓 Tandoor',
+    items: [
+      { id:201, en:'Aloo Wala Naan', ur:'آلو والا نان', single:100 },
+      { id:202, en:'Special Naan',   ur:'سپیشل نان',   single:80  },
+      { id:203, en:'Kalonji Naan',   ur:'کلونجی نان',  single:80  },
+      { id:204, en:'Roghni Naan',    ur:'روغنی نان',   single:80  },
+      { id:205, en:'Sufaid Roti',    ur:'سفید روٹی',   single:30  },
+      { id:206, en:'Kulcha Naan',    ur:'کلچہ نان',    single:40  },
+    ]
+  },
+  {
+    id: 'extras', label: '🥤 Extras & Beverages',
+    items: [
+      { id:301, en:'Aquafina (Small)',  ur:'پانی (چھوٹا)',   single:80  },
+      { id:302, en:'Aquafina (1.5L)',   ur:'پانی (بڑا)',     single:130 },
+      { id:303, en:'Cold Drink (1L)',   ur:'کولڈ ڈرنک',      single:180 },
+      { id:304, en:'Cold Drink (1.5L)', ur:'کولڈ ڈرنک بڑا',  single:250 },
+      { id:305, en:'Raita',             ur:'رائتہ',           half:50, full:100 },
+      { id:306, en:'Salad',             ur:'سلاد',            single:100 },
+    ]
+  }
+];
 
-function saveCfg(){
-  sessionStorage.setItem('gh_owner',  document.getElementById('cfgOwner').value.trim());
-  sessionStorage.setItem('gh_repo',   document.getElementById('cfgRepo').value.trim());
-  sessionStorage.setItem('gh_branch', document.getElementById('cfgBranch').value.trim() || 'main');
-}
-function getCfg(){
-  return {
-    owner:  sessionStorage.getItem('gh_owner')  || '',
-    repo:   sessionStorage.getItem('gh_repo')   || '',
-    branch: sessionStorage.getItem('gh_branch') || 'main',
-  };
-}
+let prices = {};
+let changeCount = 0;
+
+function saveToken(v){ sessionStorage.setItem('gh_token', v.trim()); }
+function getToken(){ return sessionStorage.getItem('gh_token') || ''; }
 
 window.addEventListener('DOMContentLoaded', () => {
-  // Restore token & config
   const t = getToken();
   if(t) document.getElementById('ghToken').value = t;
-  const cfg = getCfg();
-  if(cfg.owner)  document.getElementById('cfgOwner').value  = cfg.owner;
-  if(cfg.repo)   document.getElementById('cfgRepo').value   = cfg.repo;
-  if(cfg.branch) document.getElementById('cfgBranch').value = cfg.branch;
-
-  ['cfgOwner','cfgRepo','cfgBranch'].forEach(id =>
-    document.getElementById(id).addEventListener('input', saveCfg));
-
   loadPrices();
 });
 
-// ── LOAD PRICES FROM menu.json ────────────────────────────────────────────────
 async function loadPrices(){
-  // Init prices from hardcoded defaults
   MENU.forEach(cat => cat.items.forEach(item => {
     prices[item.id] = {};
     if(item.single !== undefined) prices[item.id].single = item.single;
@@ -278,7 +296,6 @@ async function loadPrices(){
     if(r.ok){
       const json = await r.json();
       document.getElementById('lastUpdated').textContent = 'Last updated: ' + (json.lastUpdated || 'unknown');
-      // Override defaults with saved prices
       json.categories.forEach(cat => {
         cat.items.forEach(ji => {
           if(!prices[ji.id]) return;
@@ -288,65 +305,48 @@ async function loadPrices(){
         });
       });
     } else {
-      document.getElementById('lastUpdated').textContent = 'menu.json nahi mili — default prices show ho rahe hain';
+      document.getElementById('lastUpdated').textContent = 'Default prices (menu.json not loaded)';
     }
   } catch(e) {
-    document.getElementById('lastUpdated').textContent = 'Offline — default prices';
+    document.getElementById('lastUpdated').textContent = 'Default prices (offline)';
   }
-
   renderMenu();
 }
 
-// ── RENDER ────────────────────────────────────────────────────────────────────
 function renderMenu(){
   const container = document.getElementById('cats');
   container.innerHTML = '';
-
   MENU.forEach(cat => {
     const sec = document.createElement('div');
     sec.className = 'section';
-
     const rows = cat.items.map(item => {
       const p = prices[item.id] || {};
       const hasSingle = item.single !== undefined;
       const hasHalf   = item.half   !== undefined;
       const hasFull   = item.full   !== undefined;
-
       return `<tr>
         <td>
           <div class="item-en">${item.en}</div>
           <div class="item-ur">${item.ur}</div>
           <div class="item-id">#${item.id}</div>
         </td>
-        <td>${hasSingle
-          ? `<input type="number" min="0" step="5" value="${p.single}"
-               onchange="updatePrice(${item.id},'single',this.value,this)">`
-          : '<span class="dash">—</span>'}</td>
-        <td>${hasHalf
-          ? `<input type="number" min="0" step="5" value="${p.half}"
-               onchange="updatePrice(${item.id},'half',this.value,this)">`
-          : '<span class="dash">—</span>'}</td>
-        <td>${hasFull
-          ? `<input type="number" min="0" step="5" value="${p.full}"
-               onchange="updatePrice(${item.id},'full',this.value,this)">`
-          : '<span class="dash">—</span>'}</td>
+        <td>${hasSingle ? `<input type="number" min="0" step="5" value="${p.single}" onchange="updatePrice(${item.id},'single',this.value,this)">` : '<span class="dash">—</span>'}</td>
+        <td>${hasHalf   ? `<input type="number" min="0" step="5" value="${p.half}"   onchange="updatePrice(${item.id},'half',this.value,this)">` : '<span class="dash">—</span>'}</td>
+        <td>${hasFull   ? `<input type="number" min="0" step="5" value="${p.full}"   onchange="updatePrice(${item.id},'full',this.value,this)">` : '<span class="dash">—</span>'}</td>
       </tr>`;
     }).join('');
-
     sec.innerHTML = `
       <div class="sec-hdr">
         <h2>${cat.label}</h2>
         <span class="sec-count">${cat.items.length} items</span>
       </div>
       <table>
-        <thead>
-          <tr>
-            <th>Item</th>
-            <th class="r">Single (Rs.)</th>
-            <th class="r">Half (Rs.)</th>
-            <th class="r">Full (Rs.)</th>
-          </tr>
-        </thead>
+        <thead><tr>
+          <th>Item</th>
+          <th class="r">Single (Rs.)</th>
+          <th class="r">Half (Rs.)</th>
+          <th class="r">Full (Rs.)</th>
+        </tr></thead>
         <tbody>${rows}</tbody>
       </table>`;
     container.appendChild(sec);
@@ -361,29 +361,22 @@ function updatePrice(id, field, val, el){
   document.getElementById('changeCount').textContent = changeCount;
 }
 
-// ── SAVE TO GITHUB ────────────────────────────────────────────────────────────
 async function saveMenu(){
   const token = getToken();
   if(!token || !token.startsWith('ghp_')){
     showMsg('err','❌ Pehle GitHub Token enter karo (ghp_xxx...)'); return;
   }
-  const cfg = getCfg();
-  if(!cfg.owner || !cfg.repo){
-    showMsg('err','❌ GitHub Owner aur Repo name zaroor bharo (upar config mein)'); return;
-  }
-
   const btn = document.getElementById('saveBtn');
   btn.disabled = true; btn.textContent = 'Saving…';
-  showMsg('', '');
+  showMsg('','');
 
   try {
-    // Build menu.json from current prices
     const today = new Date().toISOString().slice(0,10);
     const output = {
       lastUpdated: today,
       categories: MENU.map(cat => ({
         id: cat.id,
-        label: cat.label.replace(/^[^\w]+/, '').trim(),
+        label: cat.label.replace(/^[^\w\u0600-\u06FF]+/, '').trim(),
         items: cat.items.map(item => {
           const p = prices[item.id] || {};
           const obj = { id: item.id, en: item.en, ur: item.ur };
@@ -396,7 +389,7 @@ async function saveMenu(){
     };
 
     const content = btoa(unescape(encodeURIComponent(JSON.stringify(output, null, 2))));
-    const apiUrl  = `https://api.github.com/repos/${cfg.owner}/${cfg.repo}/contents/menu.json`;
+    const apiUrl  = `https://api.github.com/repos/${OWNER}/${REPO}/contents/menu.json`;
     const headers = {
       'Authorization': 'Bearer ' + token,
       'Accept': 'application/vnd.github+json',
@@ -404,19 +397,17 @@ async function saveMenu(){
       'X-GitHub-Api-Version': '2022-11-28',
     };
 
-    // Get current SHA
-    const getRes  = await fetch(apiUrl + '?ref=' + cfg.branch, { headers });
+    const getRes  = await fetch(apiUrl + '?ref=' + BRANCH, { headers });
     const getJson = await getRes.json();
     if(!getRes.ok) throw new Error('SHA fetch failed: ' + getJson.message);
 
-    // Commit
     const putRes  = await fetch(apiUrl, {
       method: 'PUT', headers,
       body: JSON.stringify({
         message: 'chore: update menu prices ' + today,
         content,
         sha: getJson.sha,
-        branch: cfg.branch,
+        branch: BRANCH,
         committer: { name: 'Lasani Admin', email: 'admin@lasani.com' },
       }),
     });
