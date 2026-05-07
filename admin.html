@@ -350,16 +350,19 @@ async function saveMenu(){
       'X-GitHub-Api-Version': '2022-11-28',
     };
 
-    const getRes  = await fetch(apiUrl + '?ref=' + BRANCH, { headers });
+    // Always fetch fresh SHA — no cache, otherwise GitHub rejects with SHA mismatch
+    const getRes  = await fetch(apiUrl + '?ref=' + BRANCH + '&t=' + Date.now(), { headers, cache: 'no-store' });
     const getJson = await getRes.json();
     if(!getRes.ok) throw new Error('SHA fetch failed: ' + getJson.message);
+    const freshSHA = getJson.sha;
+    if(!freshSHA) throw new Error('SHA missing in GitHub response');
 
     const putRes  = await fetch(apiUrl, {
       method: 'PUT', headers,
       body: JSON.stringify({
         message: 'chore: update menu prices ' + today,
         content,
-        sha: getJson.sha,
+        sha: freshSHA,
         branch: BRANCH,
         committer: { name: 'Lasani Admin', email: 'admin@lasani.com' },
       }),
