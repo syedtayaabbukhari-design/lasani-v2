@@ -1401,51 +1401,36 @@ document.querySelectorAll('.nav-tab').forEach(tab => {
   });
 });
 
-async function initMenu() {
-  // Step 1: Render immediately with hardcoded prices (instant, no flicker)
-  renderAll();
-
-  // Step 2: Fetch live prices from GitHub in background
-  const OWNER  = 'syedtayaabbukhari-design';
-  const REPO   = 'lasani-v2';
-  const BRANCH = 'main';
+// Fetch live prices from menu.json and update menuData, then re-render
+async function loadLivePrices() {
   try {
-    const controller = new AbortController();
-    const tid = setTimeout(() => controller.abort(), 8000);
     const r = await fetch(
-      `https://raw.githubusercontent.com/${OWNER}/${REPO}/${BRANCH}/menu.json?t=` + Date.now(),
-      { signal: controller.signal }
+      'https://raw.githubusercontent.com/syedtayaabbukhari-design/lasani-v2/main/menu.json?t=' + Date.now(),
+      { cache: 'no-store' }
     );
-    clearTimeout(tid);
     if (!r.ok) return;
     const json = await r.json();
 
-    // Build a flat id→prices lookup from the JSON
-    const livePrices = {};
-    json.categories.forEach(cat => {
-      cat.items.forEach(item => { livePrices[item.id] = item; });
-    });
+    // Flat lookup: id -> live item prices
+    const live = {};
+    json.categories.forEach(cat => cat.items.forEach(item => { live[item.id] = item; }));
 
-    // Patch menuData in-place with live prices
-    let changed = false;
+    // Update menuData in-place
     Object.values(menuData).forEach(arr => {
       arr.forEach(item => {
-        const live = livePrices[item.id];
-        if (!live) return;
-        if (live.single !== undefined && live.single !== item.single) { item.single = live.single; changed = true; }
-        if (live.half   !== undefined && live.half   !== item.half)   { item.half   = live.half;   changed = true; }
-        if (live.full   !== undefined && live.full   !== item.full)   { item.full   = live.full;   changed = true; }
+        if (!live[item.id]) return;
+        if (live[item.id].single !== undefined) item.single = live[item.id].single;
+        if (live[item.id].half   !== undefined) item.half   = live[item.id].half;
+        if (live[item.id].full   !== undefined) item.full   = live[item.id].full;
       });
     });
 
-    // Re-render only if something actually changed
-    if (changed) renderAll();
-  } catch(e) {
-    // Network error or timeout — hardcoded prices stay, no crash
-  }
+    renderAll(); // Re-render with live prices
+  } catch(e) { /* offline ya timeout — hardcoded prices rehti hain */ }
 }
 
-initMenu();
+renderAll();        // Pehle foran render karo hardcoded prices se
+loadLivePrices();   // Phir GitHub se live prices load karo
 </script>
 </body>
 </html>
