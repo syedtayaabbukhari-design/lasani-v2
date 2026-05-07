@@ -128,8 +128,8 @@ input[type=number].changed{border-color:var(--red);background:#fff8f5}
 
 <!-- GitHub Token -->
 <div class="token-bar">
-  <label>🔑 Enter Token</label>
-  <input type="password" id="Token" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" oninput="saveToken(this.value)">
+  <label>🔑 GitHub Token</label>
+  <input type="password" id="ghToken" placeholder="ghp_xxxxxxxxxxxxxxxxxxxx" oninput="saveToken(this.value)">
   <span class="token-tip">Sirf is session ke liye save hota hai. Tab band karo toh hat jata hai.</span>
 </div>
 
@@ -370,7 +370,7 @@ async function saveMenu(){
     const putJson = await putRes.json();
     if(!putRes.ok) throw new Error(putJson.message);
 
-    showMsg('ok','✅ Changes saved! changes Will be live in 30sec.');
+    showMsg('ok','✅ GitHub par save ho gaya! 1-2 minute mein site live ho jayegi.');
     document.getElementById('lastUpdated').textContent = 'Last updated: ' + today;
     changeCount = 0;
     document.getElementById('changeCount').textContent = '0';
